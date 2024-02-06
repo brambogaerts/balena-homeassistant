@@ -1,5 +1,4 @@
 version: '2'
-network_mode: 'host'
 volumes:
     config:
     mosquitto:
@@ -12,6 +11,7 @@ services:
     volumes:
       - 'config:/config'
     restart: always
+    network_mode: "host"
   mqtt:
     build: mqtt
     ports:
@@ -19,6 +19,7 @@ services:
     restart: always
     volumes:
       - mosquitto:/mosquitto/data
+    network_mode: "host"
   hass-configurator:
     image: "causticlab/hass-configurator-docker:latest"
     restart: always
@@ -28,3 +29,4 @@ services:
       - 'config:/hass-config'
     environment:
       - HC_BASEPATH=/hass-config
+    network_mode: "host"
